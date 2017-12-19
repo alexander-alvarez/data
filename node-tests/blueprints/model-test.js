@@ -8,6 +8,8 @@ var chai = require('ember-cli-blueprint-test-helpers/chai');
 var expect = chai.expect;
 
 var generateFakePackageManifest = require('../helpers/generate-fake-package-manifest');
+const fixture = require('../helpers/fixture');
+
 
 describe('Acceptance: generate and destroy model blueprints', function() {
   setupTestHooks(this);
@@ -19,10 +21,10 @@ describe('Acceptance: generate and destroy model blueprints', function() {
       .then(() => emberGenerateDestroy(args, _file => {
         expect(_file('app/models/foo.js'))
           .to.contain('import DS from \'ember-data\';')
-          .to.contain('export default DS.Model.extend(')
+          .to.contain('export default DS.Model.extend(');
 
         expect(_file('tests/unit/models/foo-test.js'))
-          .to.contain('moduleForModel(\'foo\'');
+          .to.equal(fixture('adapter-test/default.js'));
       }));
   });
 
